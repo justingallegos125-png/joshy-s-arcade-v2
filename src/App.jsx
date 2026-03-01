@@ -33,60 +33,46 @@ export default function App() {
   );
 
   return (
-    <div className="relative min-h-screen font-sans">
-      {/* Background Bubbles */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        {bubbles.map((bubble) => (
-          <motion.div
-            key={bubble.id}
-            className="bubble"
-            initial={{ y: '110vh', opacity: 0 }}
-            animate={{ 
-              y: '-10vh', 
-              opacity: [0, 0.6, 0.6, 0],
-              x: [0, 20, -20, 0]
-            }}
-            transition={{ 
-              duration: bubble.duration, 
-              repeat: Infinity, 
-              ease: "linear",
-              delay: bubble.id * 0.5
-            }}
-            style={{
-              width: bubble.size,
-              height: bubble.size,
-              left: `${bubble.left}%`,
-            }}
-          />
-        ))}
-      </div>
+    <div className="relative min-h-screen font-sans bg-[#050505] text-white">
+      {/* Scanline Effect */}
+      <div className="scanline" />
 
       {/* Header */}
-      <header className="relative z-10 pt-12 pb-8 px-4 text-center">
+      <header className="relative z-10 max-w-7xl mx-auto pt-16 pb-12 px-6 text-center">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="inline-block"
         >
-          <div className="flex items-center justify-center gap-4 mb-2">
-            <Gamepad2 className="w-12 h-12 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-            <h1 className="text-6xl font-black tracking-tighter text-white drop-shadow-lg italic">
-              JOSHY'S<span className="text-white/80"> ARCADE V2</span>
+          <div className="flex flex-col items-center justify-center gap-4 mb-6">
+            <div className="relative">
+              <Gamepad2 className="w-16 h-16 text-[#00f2ff] drop-shadow-[0_0_15px_#00f2ff]" />
+              <div className="absolute -inset-4 bg-[#00f2ff]/20 blur-2xl rounded-full -z-10" />
+            </div>
+            <h1 
+              className="text-7xl font-black tracking-tighter uppercase glitch-text"
+              data-text="JOSHY'S ARCADE V2"
+            >
+              JOSHY'S ARCADE V2
             </h1>
           </div>
-          <p className="text-white/90 font-medium tracking-widest uppercase text-xs">
-            The Ultimate Glossy Game Hub
-          </p>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-[1px] w-12 bg-[#00f2ff]/50" />
+            <p className="text-[#00f2ff] font-bold tracking-[0.3em] uppercase text-xs">
+              Next-Gen Retro Experience
+            </p>
+            <div className="h-[1px] w-12 bg-[#00f2ff]/50" />
+          </div>
         </motion.div>
 
         {/* Search Bar */}
-        <div className="max-w-md mx-auto mt-10 relative">
-          <div className="glass-card flex items-center px-6 py-3">
-            <Search className="w-5 h-5 text-white/70 mr-3" />
+        <div className="max-w-xl mx-auto mt-12 relative">
+          <div className="cyber-card flex items-center px-8 py-4 border-[#00f2ff]/50">
+            <Search className="w-5 h-5 text-[#00f2ff] mr-4" />
             <input
               type="text"
-              placeholder="Search unblocked games..."
-              className="bg-transparent border-none outline-none text-white placeholder-white/50 w-full font-medium"
+              placeholder="INITIALIZING SEARCH PROTOCOL..."
+              className="bg-transparent border-none outline-none text-[#00f2ff] placeholder-[#00f2ff]/30 w-full font-bold tracking-widest text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -95,43 +81,53 @@ export default function App() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {filteredGames.map((game, index) => (
             <motion.div
               key={game.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              whileHover={{ y: -10 }}
-              className="glass-card group cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              className="cyber-card group cursor-pointer overflow-hidden flex flex-col"
               onClick={() => setSelectedGame(game)}
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-52 overflow-hidden">
                 <img
                   src={game.thumbnail}
                   alt={game.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <span className="text-white font-bold flex items-center gap-2">
-                    Play Now <Maximize2 className="w-4 h-4" />
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <div className="bg-[#00f2ff] text-black text-[10px] font-black px-2 py-0.5 rounded-sm uppercase tracking-tighter">
+                    Active
+                  </div>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-white drop-shadow-sm">{game.title}</h3>
-                <p className="text-white/70 text-sm line-clamp-2">{game.description}</p>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-2xl font-black mb-2 text-white group-hover:text-[#00f2ff] transition-colors tracking-tight uppercase italic">
+                  {game.title}
+                </h3>
+                <p className="text-white/50 text-xs font-medium leading-relaxed mb-6 line-clamp-2 uppercase tracking-wider">
+                  {game.description}
+                </p>
+                <div className="mt-auto">
+                  <button className="neon-button w-full text-xs">
+                    Execute Play
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
         {filteredGames.length === 0 && (
-          <div className="text-center py-20">
-            <Info className="w-16 h-16 text-white/30 mx-auto mb-4" />
-            <p className="text-white/50 text-xl font-medium">No games found matching your search.</p>
+          <div className="text-center py-32">
+            <Info className="w-20 h-20 text-[#00f2ff]/20 mx-auto mb-6" />
+            <p className="text-[#00f2ff]/40 text-2xl font-black uppercase tracking-[0.2em]">Data Not Found</p>
           </div>
         )}
       </main>
@@ -143,44 +139,46 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/40 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="glass-card w-full max-w-6xl h-full max-h-[90vh] flex flex-col"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="cyber-card w-full max-w-6xl h-full max-h-[90vh] flex flex-col border-[#00f2ff]"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/20">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                    <Gamepad2 className="w-6 h-6 text-white" />
+              <div className="flex items-center justify-between px-8 py-6 border-b border-[#00f2ff]/20">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-tr-xl rounded-bl-xl border border-[#00f2ff] flex items-center justify-center shadow-[0_0_15px_rgba(0,242,255,0.2)]">
+                    <Gamepad2 className="w-6 h-6 text-[#00f2ff]" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white leading-tight">{selectedGame.title}</h2>
-                    <p className="text-xs text-white/60 uppercase tracking-widest font-bold">Now Playing</p>
+                    <h2 className="text-2xl font-black text-white tracking-tight uppercase italic">{selectedGame.title}</h2>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-[#00f2ff] animate-pulse" />
+                      <p className="text-[10px] text-[#00f2ff] uppercase tracking-[0.3em] font-bold">System Online</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <button
                     onClick={() => window.open(selectedGame.url, '_blank')}
-                    className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/80 hover:text-white"
-                    title="Open in new tab"
+                    className="p-3 border border-[#00f2ff]/30 hover:border-[#00f2ff] hover:bg-[#00f2ff]/10 rounded-lg transition-all text-[#00f2ff]"
                   >
-                    <ExternalLink className="w-6 h-6" />
+                    <ExternalLink className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setSelectedGame(null)}
-                    className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/80 hover:text-white"
+                    className="p-3 border border-[#ff00ff]/30 hover:border-[#ff00ff] hover:bg-[#ff00ff]/10 rounded-lg transition-all text-[#ff00ff]"
                   >
-                    <X className="w-8 h-8" />
+                    <X className="w-6 h-6" />
                   </button>
                 </div>
               </div>
 
               {/* Game Iframe */}
-              <div className="flex-1 bg-black/20 relative">
+              <div className="flex-1 bg-black relative">
                 <iframe
                   src={selectedGame.url}
                   className="w-full h-full border-none"
@@ -190,15 +188,20 @@ export default function App() {
               </div>
 
               {/* Modal Footer */}
-              <div className="px-6 py-4 bg-white/5 flex items-center justify-between">
-                <p className="text-white/60 text-sm italic">
-                  Tip: If the game doesn't load, try opening it in a new tab.
-                </p>
+              <div className="px-8 py-6 bg-[#00f2ff]/5 flex items-center justify-between">
+                <div className="flex items-center gap-6">
+                  <div className="text-[10px] text-white/40 font-bold uppercase tracking-widest">
+                    Latency: <span className="text-[#00f2ff]">Optimal</span>
+                  </div>
+                  <div className="text-[10px] text-white/40 font-bold uppercase tracking-widest">
+                    Resolution: <span className="text-[#00f2ff]">Max</span>
+                  </div>
+                </div>
                 <button
                   onClick={() => setSelectedGame(null)}
-                  className="glossy-button text-sm"
+                  className="neon-button text-xs"
                 >
-                  Close Game
+                  Terminate Session
                 </button>
               </div>
             </motion.div>
@@ -207,14 +210,27 @@ export default function App() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer className="relative z-10 py-10 px-6 text-center border-t border-white/10">
-        <p className="text-white/40 text-sm font-medium">
-          &copy; 2026 Joshy's Arcade V2. All games are property of their respective owners.
-        </p>
-        <div className="mt-4 flex justify-center gap-6">
-          <a href="#" className="text-white/60 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Privacy</a>
-          <a href="#" className="text-white/60 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Terms</a>
-          <a href="#" className="text-white/60 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
+      <footer className="relative z-10 py-20 px-6 text-center border-t border-[#00f2ff]/10 bg-black/50">
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
+          <div className="flex gap-12 mb-12 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div className="w-24 h-8 bg-[#00f2ff]/20 border border-[#00f2ff] rounded-sm" />
+            <div className="w-24 h-8 bg-[#ff00ff]/20 border border-[#ff00ff] rounded-sm" />
+            <div className="w-24 h-8 bg-[#ccff00]/20 border border-[#ccff00] rounded-sm" />
+          </div>
+          <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.5em] mb-6">
+            &copy; 2026 JOSHY'S ARCADE V2 // ALL RIGHTS RESERVED
+          </p>
+          <div className="flex justify-center gap-10">
+            {['Network', 'Security', 'Protocol'].map((item) => (
+              <a 
+                key={item}
+                href="#" 
+                className="text-[#00f2ff]/40 hover:text-[#00f2ff] transition-colors text-[10px] font-black uppercase tracking-[0.2em]"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
         </div>
       </footer>
     </div>
