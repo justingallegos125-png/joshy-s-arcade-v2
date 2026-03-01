@@ -71,7 +71,7 @@ export default function App() {
           <div className="flex items-center justify-center gap-4 mb-2">
             <Gamepad2 className="w-12 h-12 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
             <h1 className="text-6xl font-black tracking-tighter text-white drop-shadow-lg italic">
-              AERO<span className="text-white/80">GAMES</span>
+              JOSHY'S<span className="text-white/80"> ARCADE V2</span>
             </h1>
           </div>
           <p className="text-white/90 font-medium tracking-widest uppercase text-xs">
@@ -209,7 +209,7 @@ export default function App() {
       {/* Footer */}
       <footer className="relative z-10 py-10 px-6 text-center border-t border-white/10">
         <p className="text-white/40 text-sm font-medium">
-          &copy; 2026 AeroGames. All games are property of their respective owners.
+          &copy; 2026 Joshy's Arcade V2. All games are property of their respective owners.
         </p>
         <div className="mt-4 flex justify-center gap-6">
           <a href="#" className="text-white/60 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Privacy</a>
